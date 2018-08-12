@@ -5,8 +5,9 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import SingUp from './components/signup/SignUp';
-import SignIn from './components/signin/SignIn';
+import { Notes } from './components/notes';
+import { SignUp } from './components/signup';
+import { SignIn } from './components/signin';
 
 class App extends Component {
   render() {
@@ -14,7 +15,8 @@ class App extends Component {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route exact path="/auth/sing-up" component={SingUp} />
+            <Route exact path="/" component={Notes} />
+            <Route exact path="/auth/sing-up" component={SignUp} />
             <Route exact path="/auth/sing-in" component={SignIn} />
           </Switch>
         </BrowserRouter>
