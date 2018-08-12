@@ -50,8 +50,17 @@ let SignInForm = ({
   handleSubmit,
   submitting,
   classes,
+  isFetching,
+  errorSignIn,
 }) => (
   <form onSubmit={handleSubmit} className={classes.SignInForm}>
+    {errorSignIn && (
+      <div className={classes.formErrors}>
+        {errorSignIn.errors.map((item, index) => (
+          <div key={index} className={classes.errors}>{item}</div>
+        ))}
+      </div>
+    )}
     <div className={classes.formGroup}>
       <Field name="email" component={styledField} type="email" placeholder="Email" />
     </div>
@@ -65,7 +74,7 @@ let SignInForm = ({
       <button
         className={classNames(classes.button, classes.buttonSubmite)}
         type="submit"
-        disabled={submitting}
+        disabled={submitting || isFetching}
       >
         Sign In
       </button>
@@ -124,6 +133,19 @@ const styles = {
     color: '#FFFFFF',
     backgroundColor: '#403F3F',
     boxShadow: '0 2px 12px 0 rgba(71,61,61,0.1)',
+
+    '&:disabled': {
+      cursor: 'default',
+      backgroundColor: '#403f3f9e',
+    },
+  },
+  formErrors: {},
+  errors: {
+    color: '#FF7275',
+    fontSize: '12px',
+    fontWeight: '300',
+    lineHeight: '14px',
+    marginBottom: '10px',
   },
 };
 

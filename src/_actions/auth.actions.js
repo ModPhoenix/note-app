@@ -28,16 +28,16 @@ function signUp(name, email, password, confirm, history) {
           history.push('/');
         },
         (error) => {
-          dispatch(failure(error));
+          dispatch(failure(error.response.data));
         },
       );
   };
 }
 
 function signIn(email, password, history) {
-  const request = () => ({ type: authConstants.SIGN_UP_REQUEST });
-  const success = payload => ({ type: authConstants.SIGN_UP_SUCCESS, payload });
-  const failure = payload => ({ type: authConstants.SIGN_UP_FAILURE, payload });
+  const request = () => ({ type: authConstants.SIGN_IN_REQUEST });
+  const success = payload => ({ type: authConstants.SIGN_IN_SUCCESS, payload });
+  const failure = payload => ({ type: authConstants.SIGN_IN_FAILURE, payload });
 
   return (dispatch) => {
     dispatch(request());
@@ -61,7 +61,7 @@ function signIn(email, password, history) {
           history.push('/');
         },
         (error) => {
-          dispatch(failure(error));
+          dispatch(failure(error.response.data));
         },
       );
   };

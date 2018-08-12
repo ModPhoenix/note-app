@@ -23,25 +23,28 @@ class SignUp extends Component {
   onSubmitHandler(values) {
     const { actions, history } = this.props;
 
-    console.log('history', history);
-
     actions.signUp(
       values.name,
       values.email,
       values.password,
       values.confirm,
+      history,
     );
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, isFetching, errorSignUp } = this.props;
 
     return (
       <React.Fragment>
         <Header pageTitle="Sing Up" />
         <div className={classes.singUp}>
           <div className={classes.formWrap}>
-            <SignUpForm onSubmit={this.onSubmitHandler} />
+            <SignUpForm
+              onSubmit={this.onSubmitHandler}
+              isFetching={isFetching}
+              errorSignUp={errorSignUp}
+            />
           </div>
         </div>
       </React.Fragment>
@@ -60,12 +63,17 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '419px',
+    minHeight: '419px',
     width: '413px',
     backgroundColor: '#FFFFFF',
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.1)',
   },
 };
+
+const mapStateToProps = state => ({
+  isFetching: state.auth.isFetchingSignUp,
+  errorSignUp: state.auth.errorSignUp,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actionCreators, dispatch),
@@ -74,7 +82,7 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   injectSheet(styles),
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
   ),
   withRouter,

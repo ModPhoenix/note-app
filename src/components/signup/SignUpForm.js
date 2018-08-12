@@ -60,8 +60,17 @@ let SignUpForm = ({
   handleSubmit,
   submitting,
   classes,
+  isFetching,
+  errorSignUp,
 }) => (
   <form onSubmit={handleSubmit} className={classes.SignUpform}>
+    {errorSignUp && (
+      <div className={classes.formErrors}>
+        {errorSignUp.errors.map((item, index) => (
+          <div key={index} className={classes.errors}>{item}</div>
+        ))}
+      </div>
+    )}
     <div className={classes.formGroup}>
       <Field name="name" component={styledField} type="text" placeholder="Name" />
     </div>
@@ -81,7 +90,7 @@ let SignUpForm = ({
       <button
         className={classNames(classes.button, classes.buttonSubmite)}
         type="submit"
-        disabled={submitting}
+        disabled={submitting || isFetching}
       >
         Sign Up
       </button>
@@ -140,6 +149,18 @@ const styles = {
     color: '#FFFFFF',
     backgroundColor: '#403F3F',
     boxShadow: '0 2px 12px 0 rgba(71,61,61,0.1)',
+
+    '&:disabled': {
+      backgroundColor: '#403f3f9e',
+    },
+  },
+  formErrors: {},
+  errors: {
+    color: '#FF7275',
+    fontSize: '12px',
+    fontWeight: '300',
+    lineHeight: '14px',
+    marginBottom: '10px',
   },
 };
 

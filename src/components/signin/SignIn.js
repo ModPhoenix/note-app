@@ -33,14 +33,18 @@ class SignIn extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, isFetching, errorSignIn } = this.props;
 
     return (
       <React.Fragment>
         <Header pageTitle="Sing In" />
         <div className={classes.singUp}>
           <div className={classes.formWrap}>
-            <SignInForm onSubmit={this.onSubmitHandler} />
+            <SignInForm
+              onSubmit={this.onSubmitHandler}
+              isFetching={isFetching}
+              errorSignIn={errorSignIn}
+            />
           </div>
         </div>
       </React.Fragment>
@@ -59,12 +63,17 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '305px',
+    minHeight: '305px',
     width: '413px',
     backgroundColor: '#FFFFFF',
     boxShadow: '0 4px 8px 0 rgba(0,0,0,0.1)',
   },
 };
+
+const mapStateToProps = state => ({
+  isFetching: state.auth.isFetchingSignIn,
+  errorSignIn: state.auth.errorSignIn,
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actionCreators, dispatch),
@@ -73,7 +82,7 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   injectSheet(styles),
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps,
   ),
   withRouter,
