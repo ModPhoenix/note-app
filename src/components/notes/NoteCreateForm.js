@@ -87,7 +87,7 @@ let NoteCreateForm = ({
     <div className={classes.formGroup}>
       <Field
         className={classes.details}
-        name="details"
+        name="text"
         component={styledTextareaField}
         type="text"
         placeholder="Details"

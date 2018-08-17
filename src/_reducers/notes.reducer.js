@@ -2,8 +2,10 @@ import { notesConstants } from '../_constants';
 
 const initialState = {
   isFetchingNotes: false,
+  isFetchingCreate: false,
   data: null,
   errorNotes: null,
+  errorCreate: null,
 };
 
 export default function (state = initialState, action) {
@@ -18,7 +20,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isFetchingNotes: false,
-        data: action.payload.data,
+        data: action.payload,
         errorNotes: null,
       };
     case notesConstants.FETCH_NOTES_FAILURE:
@@ -26,6 +28,28 @@ export default function (state = initialState, action) {
         ...state,
         isFetchingNotes: false,
         errorNotes: action.payload,
+      };
+    case notesConstants.CREATE_NOTE_REQUEST:
+      return {
+        ...state,
+        isFetchingCreate: true,
+        errorCreate: null,
+      };
+    case notesConstants.CREATE_NOTE_SUCCESS:
+      return {
+        ...state,
+        isFetchingCreate: false,
+        data: {
+          ...state.data,
+          [action.payload.id]: action.payload,
+        },
+        errorCreate: null,
+      };
+    case notesConstants.CREATE_NOTE_FAILURE:
+      return {
+        ...state,
+        isFetchingCreate: false,
+        errorCreate: action.payload,
       };
     default:
       return state;

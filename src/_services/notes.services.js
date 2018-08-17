@@ -14,7 +14,7 @@ axios.defaults.headers.common.uid = authObj.uid;
 console.log('authData', authObj);
 
 const fetchNotes = () => (
-  axios.get('/notes/', { authObj: 'asdasd' })
+  axios.get('/notes/')
 );
 
 const createNote = ({
@@ -24,7 +24,6 @@ const createNote = ({
   dueDate,
 }) => (
   axios.post('/notes/', {
-    ...authData,
     title,
     text,
     archived,
@@ -40,7 +39,6 @@ const updateNote = ({
   dueDate,
 }) => (
   axios.patch(`/notes/${id}`, {
-    ...authData,
     title,
     text,
     archived,
@@ -50,7 +48,6 @@ const updateNote = ({
 
 const deleteNote = id => (
   axios.delete(`/notes/${id}`, {
-    ...authData,
     id,
   })
 );

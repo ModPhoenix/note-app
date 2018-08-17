@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { compose, bindActionCreators } from 'redux';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import injectSheet from 'react-jss';
 
