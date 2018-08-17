@@ -19,7 +19,7 @@ class Notes extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, notes } = this.props;
 
     return (
       <React.Fragment>
@@ -27,7 +27,7 @@ class Notes extends Component {
         <Toolbar />
         <div className={classes.notes}>
           <div className={classes.notesList}>
-            <NotesList />
+            <NotesList notes={notes} />
           </div>
           <div className={classes.noteDetail}>
             <NoteCreate />
@@ -52,7 +52,13 @@ const styles = {
   },
 };
 
+const mapStateToProps = state => ({
+  notes: state.notes.data,
+});
+
 export default compose(
   injectSheet(styles),
-  connect(),
+  connect(
+    mapStateToProps,
+  ),
 )(Notes);
