@@ -23,13 +23,7 @@ class SignIn extends Component {
   onSubmitHandler(values) {
     const { actions, history } = this.props;
 
-    console.log('history', history);
-
-    actions.signIn(
-      values.email,
-      values.password,
-      history,
-    );
+    actions.signIn(values.email, values.password, history);
   }
 
   render() {
